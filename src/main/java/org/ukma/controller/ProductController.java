@@ -1,36 +1,34 @@
 package org.ukma.controller;
 
-
-import org.ukma.dao.ProductDAO;
+import org.ukma.model.ProductModel;
 import org.ukma.service.ProductService;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.GET;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import java.util.List;
 
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductController {
 
-    @Inject
+//    @Inject
     ProductService productService;
 
     @POST
-    public ProductDAO createProduct(ProductDAO product){
-        return productService.addProduct(product);
+    public Response createProduct(ProductModel product){
+        productService.create(product);
+        return Response.ok().status(Response.Status.CREATED).build();
     }
 
-    @GET
-    @Transactional
-    public List<ProductDAO> getAllProducts(){
-        return productService.getAll();
-    }
+//    @GET
+//    @Transactional
+//    public List<ProductDAO> getAllProducts(){
+//        return productService.getAll();
+//    }
 
 
 

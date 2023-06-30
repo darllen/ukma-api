@@ -1,26 +1,18 @@
 package org.ukma.dao;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import org.ukma.model.ProductModel;
+import org.ukma.repository.ProductRepository;
 
-@Data
-@NoArgsConstructor
-@Entity
-@Table(name = "products")
-public class ProductDAO extends PanacheEntity {
+import javax.inject.Inject;
 
-    @Column(name = "id")
-    private Long id;
+public class ProductDAO {
 
-    @Column(name = "name")
-    private String name;
+    @Inject
+    ProductRepository productRepository;
 
-    @Column(name = "price")
-    private double price;
-
-    @Column(name = "quantity")
-    private int quantity;
+    public void save(ProductModel productModel) {
+        this.productRepository.persist(productModel);
+    }
 }
+
